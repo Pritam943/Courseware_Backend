@@ -11,38 +11,32 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/rest/login")
+@RequestMapping("/api/users")
 public class LoginController {
-
+    @Autowired
     private LoginService loginService;
 
-    @Autowired
-    public LoginController(LoginService loginService) {
-        this.loginService = loginService;
+    @PostMapping("/")
+    public ResponseEntity<Login> save(@RequestBody Login login){
+        return new ResponseEntity<>(loginService.saveLogin(login), HttpStatus.CREATED);
+    }
+    @GetMapping("/")
+    public ResponseEntity<List<Login>> getAllLoginDetails(){
+        return new ResponseEntity<>(loginService.getAllLoginDetail(), HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<Login> saveLogin(@RequestBody Login login){
-        return new ResponseEntity<Login>(loginService.saveLogin(login), HttpStatus.CREATED);
-    }
-
-    @GetMapping
-    public List<Login> getAllLoginDetails(){
-        return loginService.getAllLoginDetail();
-    }
-
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Login> getLoginDetailById(@PathVariable("id") long LoginId){
         return new ResponseEntity<Login>(loginService.getLoginDetailById(LoginId),HttpStatus.OK);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Login> updateLoginDetails(@PathVariable("id") long id,@RequestBody Login loginCourseware)
     {
         return new ResponseEntity<Login>(loginService.updateLoginDetails(loginCourseware,id),HttpStatus.OK);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Login> deleteLoginDetails(@PathVariable("id") long id,@RequestBody Login login){
         return new ResponseEntity<Login>(loginService.deleteLoginDetails(login,id),HttpStatus.OK);
     }

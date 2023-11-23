@@ -1,40 +1,18 @@
 package com.Courseware.cutm.model;
 
-import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.*;
 
 @Entity
-@Table(name = "courses")
+@Getter
+@Setter
+@Table(name = "course")
 public class Course {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int courseid;
-
     private String coursename;
-
     private String coursecategory;
-
-    public int getCourseid() {
-        return courseid;
-    }
-
-    public void setCourseid(int courseid) {
-        this.courseid = courseid;
-    }
-
-    public String getCoursename() {
-        return coursename;
-    }
-
-    public void setCoursename(String coursename) {
-        this.coursename = coursename;
-    }
-
-    public String getCoursecategory() {
-        return coursecategory;
-    }
-
-    public void setCoursecategory(String coursecategory) {
-        this.coursecategory = coursecategory;
-    }
 }
